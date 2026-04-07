@@ -51,10 +51,10 @@ function App() {
 
           <div className = {styles.lang}>
             <img className = {styles.lang__icon} src = {require('./images/world.svg').default} alt="world"/>
-            <p className = {styles['lang__item', isEnglish ? 'lang__item--selected': '']} onClick={() => changeLang(true)}>
+            <p className= {`${styles.lang__item} ${isEnglish ? styles['lang__item--selected'] : ''}`} onClick={() => changeLang(true)}>
               { t("app.en") }
             </p>
-            <p className = {styles['lang__item', !isEnglish ? 'lang__item--selected': '']} onClick={()=> changeLang(false) }>
+            <p className={`${styles.lang__item} ${!isEnglish ? styles['lang__item--selected'] : ''}`} onClick={()=> changeLang(false) }>
               { t("app.es") }
             </p>
           </div>

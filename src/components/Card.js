@@ -11,7 +11,7 @@ export const Card = (card) => {
   return (
     <div className={styles.card}>
       <div className={styles.card__oval}>
-      <img className={styles.card__img} src={require(`../images/${img}.svg`)}/>
+      <img className={styles.card__img} src={require(`../images/${img}.svg`)} alt='jugo'/>
       </div>
       <p className={styles.card__description}> { t(`app.${img}`) } </p>
     </div>
