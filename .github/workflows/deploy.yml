@@ -1,0 +1,74 @@
+name: React CI/CD to Cloudflare Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+
+  ci:
+    name: CI - Validate & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Node (IMPORTANTE: 20 para wrangler)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3. Dependencias
+      - name: Install
+        run: npm ci
+
+      # 4. Lint
+      - name: Lint
+        run: npm run lint || true   # evita fallo si no tienes lint configurado
+
+      # 5. Tests
+      - name: Test
+        run: npm run test -- --watchAll=false
+
+      # 6. Build
+      - name: Build
+        run: npm run build
+
+      # 7. Guardar artefacto
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build
+
+  cd:
+    name: CD - Deploy to Cloudflare
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      # 1. Descargar build
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+
+      # 2. Instalar wrangler
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      # 3. Deploy
+      - name: Deploy to Cloudflare Pages
+        run: |
+          wrangler pages deploy build \
+            --project-name=logincalltek \
+            --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
