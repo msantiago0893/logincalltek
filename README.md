@@ -7,4 +7,4 @@
   * npm install i18next react-i18next
   
 # Deploy automatizado a cloudflare con github actions
- * Project logincalltek
+ * Project cloudflare logincalltek
