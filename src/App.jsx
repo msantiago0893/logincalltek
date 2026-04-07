@@ -46,7 +46,7 @@ function App() {
             <img className = {styles.setting__icon} src = {require('./images/settings.svg').default} alt="setting"/>
             <p className = {styles.setting__text}> { t("app.settings") } </p>
           </div>
-          <h1 className = {styles.form__title}> PRUEBA SANTIAGO </h1>
+          <h1 className = {styles.form__title}> Logincalltek SANTIAGO </h1>
           <h1 className = {styles.form__title}> { t("app.welcome") } </h1>
 
           <div className = {styles.lang}>
