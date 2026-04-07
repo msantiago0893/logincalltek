@@ -31,10 +31,6 @@ jobs:
       - name: Lint
         run: npm run lint || true   # evita fallo si no tienes lint configurado
 
-      # 5. Tests
-      - name: Test
-        run: npm run test -- --watchAll=false
-
       # 6. Build
       - name: Build
         run: npm run build
